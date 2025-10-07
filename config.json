@@ -3,7 +3,10 @@
   "title": "Mihir Talati — Retro Terminal",
   "name": "Mihir Talati",
   "ascii": "MiTerm",
-  "degrees": "—",
+  "degrees": [
+    "B.S. in Computer Science (Honors)",
+    "B.S. in Physics (Honors)"
+  ],
   "gpa": "—",
   "graduation_date": "—",
   "social": {
@@ -19,7 +22,7 @@
   "theme": "matrix_crt",
   "effects": { "crt": true },
   "repo": "https://github.com/Mihir-Null",
-  "resume_url": "https://www.linkedin.com/in/mihir-talati-2671a2247/",
+  "resume_url": "/resume.html",
   "donate_urls": {
     "paypal": "https://paypal.me/cveinnt",
     "patreon": "https://patreon.com/cveinnt"
