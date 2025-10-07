@@ -58,7 +58,12 @@ const sumfetch = async (_args: string[]): Promise<string> => {
   const now = new Date();
   const dateStr = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())} ${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
 
-  const degrees = (config as any).degrees || '—';
+  const degreesRaw = (config as any).degrees;
+  const degreeEntries: string[] = Array.isArray(degreesRaw)
+    ? (degreesRaw as string[])
+    : degreesRaw
+    ? [degreesRaw as string]
+    : [];
   const gpa = (config as any).gpa || '—';
   const grad = (config as any).graduation_date || '—';
   const phone = (config as any).phone || '—';
@@ -95,11 +100,32 @@ const sumfetch = async (_args: string[]): Promise<string> => {
                                                          `;
 
   // Right: three boxes with consistent borders (ASCII-only content for stable width)
+  const degreeIcon = (degree: string) => {
+    const lower = degree.toLowerCase();
+    if (lower.includes('physics')) return '⚛';
+    if (lower.includes('computer science')) return '';
+    return '•';
+  };
+
+  const degreeLines = degreeEntries.length
+    ? [
+        padLine(`${INDENT}${label('', 'Degrees', 'sumfetch-key--green')}`),
+        ...degreeEntries.map((degree, index) => {
+          const marker = index === degreeEntries.length - 1 ? '└' : '├';
+          return padLine(
+            `${INDENT.repeat(2)}${marker} ${aboutVal(`${degreeIcon(degree)} ${degree}`)}`,
+          );
+        }),
+      ]
+    : [
+        padLine(`${INDENT}${label('', 'Degrees', 'sumfetch-key--green')} ${aboutVal('—')}`),
+      ];
+
   const about = [
     header('About', TOP_BAR_DELTA_ABOUT),
     padLine(''),
     padLine(`${INDENT}${label('', 'Name', 'sumfetch-key--green')}: ${aboutVal(config.name)}`),
-    padLine(`${INDENT}${label('', 'Degree', 'sumfetch-key--green')}: ${aboutVal(degrees)}`),
+    ...degreeLines,
     padLine(`${INDENT}${label('', 'GPA', 'sumfetch-key--green')}: ${aboutVal(gpa)}`),
     padLine(`${INDENT}${label('', 'Grad', 'sumfetch-key--green')}: ${aboutVal(grad)}`),
     padLine(''),

@@ -106,6 +106,7 @@ export const Input = ({
             : 'text-dark-red'
         }`}
         value={command}
+        placeholder="try help, ls, resume, or summary"
         onChange={onChange}
         autoFocus
         onKeyDown={onSubmit}

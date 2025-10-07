@@ -328,10 +328,21 @@ const encodeExplorerTree = (tree: LinkedInFsEntry[]) => encodeURIComponent(JSON.
 
 // Help
 export const help = async (args: string[]): Promise<string> => {
-  const commands = Object.keys(bin)
+  const allCommands = Object.keys(bin)
     .filter((cmd) => cmd !== 'default')
     .sort();
-  const bulletList = commands.map((cmd) => `- ${cmd}`).join('\n');
+  const priority = ['ls', 'resume', 'summary', 'crt'];
+  const prioritized = priority.filter((cmd) => allCommands.includes(cmd));
+  const orderedCommands = [
+    ...prioritized,
+    ...allCommands.filter((cmd) => !priority.includes(cmd)),
+  ];
+  const bulletList = orderedCommands
+    .map((cmd, index) => {
+      const marker = index === orderedCommands.length - 1 ? '└' : '├';
+      return `${marker} ${cmd}`;
+    })
+    .join('\n');
 
   return `Available commands:\n${bulletList}\n\nShortcuts:\n- [tab] trigger completion\n- [ctrl+l] or clear to wipe the terminal\n\nTry 'sumfetch' for the quick card or 'summary' for the full profile.`;
 };
