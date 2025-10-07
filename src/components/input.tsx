@@ -14,6 +14,18 @@ export const Input = ({
   setHistory,
   setLastCommandIndex,
   clearHistory,
+  username,
+}: {
+  inputRef: React.MutableRefObject<HTMLInputElement>;
+  containerRef: React.MutableRefObject<any>;
+  command: string;
+  history: any[];
+  lastCommandIndex: number;
+  setCommand: (v: string) => void;
+  setHistory: (v: string) => void;
+  setLastCommandIndex: (v: number) => void;
+  clearHistory: () => void;
+  username?: string;
 }) => {
   const onSubmit = async (event: React.KeyboardEvent<HTMLInputElement>) => {
     const commands: [string] = history
@@ -81,7 +93,7 @@ export const Input = ({
   return (
     <div className="flex flex-row space-x-2">
       <label htmlFor="prompt" className="flex-shrink">
-        <Ps1 />
+        <Ps1 username={username} />
       </label>
 
       <input

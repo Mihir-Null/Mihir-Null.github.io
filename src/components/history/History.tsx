@@ -2,8 +2,9 @@ import React from 'react';
 import { History as HistoryInterface } from './interface';
 import { Ps1 } from '../Ps1';
 
-export const History: React.FC<{ history: Array<HistoryInterface> }> = ({
+export const History: React.FC<{ history: Array<HistoryInterface>; username?: string }> = ({
   history,
+  username,
 }) => {
   return (
     <>
@@ -11,7 +12,7 @@ export const History: React.FC<{ history: Array<HistoryInterface> }> = ({
         <div key={entry.command + index}>
           <div className="flex flex-row space-x-2">
             <div className="flex-shrink">
-              <Ps1 />
+              <Ps1 username={username} />
             </div>
 
             <div className="flex-grow">{entry.command}</div>

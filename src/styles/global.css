@@ -39,3 +39,290 @@ div#__next > div {
 ::-webkit-scrollbar-thumb:hover {
   background: #ff8037;
 }
+
+/* --- CRT / Retro Terminal Effects --- */
+.crt {
+  /* stronger phosphor glow + slight chromatic fringing */
+  --crt-text-shadow:
+    0 0 4px rgba(0, 255, 128, 0.65),
+    0 0 18px rgba(0, 255, 128, 0.32),
+    1.5px 0 1.2px rgba(0, 255, 128, 0.22),
+    -1.3px 0 1.2px rgba(0, 128, 255, 0.14),
+    0 1.3px 1.2px rgba(255, 0, 0, 0.12);
+  --crt-filter-base: contrast(1.25) saturate(1.4) brightness(1.08);
+  --crt-filter-extra: none; /* e.g., url(#crt-barrel-*) injected by classes */
+  --crt-transform: none;
+  --crt-scale: 1;
+  /* keep base container simple; warping done via filter on inner */
+  /* no overscan here; handled per warp level via safe scaling */
+}
+.crt, .crt * { text-shadow: var(--crt-text-shadow); }
+
+/* Frame provides safe padding and slight offset to avoid edge cropping */
+.crt-frame {
+  position: absolute;
+  top: 2.2%;
+  right: 0.8%;
+  bottom: 0.8%;
+  left: 2.2%;
+}
+
+/* Inner wrapper for geometric effects to avoid whitespace at edges */
+.crt-inner {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transform-origin: 50% 50%;
+  filter: var(--crt-filter-extra) var(--crt-filter-base);
+  transform: var(--crt-transform) scale(var(--crt-scale));
+  will-change: filter, transform;
+}
+
+/* Warp strength presets (radial barrel via SVG displacement; symmetric & centered) */
+.crt-warp-sm { --crt-filter-extra: url(#crt-barrel-sm); --crt-scale: 0.996; --crt-transform: none; }
+.crt-warp-md { --crt-filter-extra: url(#crt-barrel-md); --crt-scale: 0.990; --crt-transform: none; }
+.crt-warp-lg { --crt-filter-extra: url(#crt-barrel-lg); --crt-scale: 0.985; --crt-transform: none; }
+
+/* Extra Curvature */
+.crt-curve { --crt-perspective: 700px; --crt-transform: rotateX(0.9deg) rotateY(0.8deg); --crt-scale: 0.985; }
+
+.crt::before {
+  /* scanlines + aperture grille (RGB stripe) */
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    /* subtle global tint */
+    linear-gradient(rgba(255,255,255,0.02), rgba(0,0,0,0.05)),
+    /* horizontal scanlines */
+    repeating-linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.25) 0px,
+      rgba(0, 0, 0, 0.25) 2px,
+      rgba(0, 0, 0, 0.06) 3px,
+      rgba(0, 0, 0, 0.06) 4px
+    ),
+    /* vertical RGB mask */
+    repeating-linear-gradient(
+      to right,
+      rgba(255, 0, 0, 0.05) 0px,
+      rgba(255, 0, 0, 0.05) 1px,
+      rgba(0, 255, 0, 0.05) 1px,
+      rgba(0, 255, 0, 0.05) 2px,
+      rgba(0, 0, 255, 0.05) 2px,
+      rgba(0, 0, 255, 0.05) 3px,
+      rgba(0, 0, 0, 0.0) 3px,
+      rgba(0, 0, 0, 0.0) 4px
+    );
+  background-size: auto, auto, 4px 100%;
+  background-blend-mode: soft-light, multiply, screen;
+  opacity: 0.66;
+  mix-blend-mode: multiply;
+  z-index: 10;
+  animation: crt-scan 8s linear infinite;
+}
+
+.crt::after {
+  /* vignette + noise + flicker */
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at center, rgba(0,0,0,0) 58%, rgba(0,0,0,0.28) 100%),
+    repeating-linear-gradient(
+      45deg,
+      rgba(255,255,255,0.02) 0px,
+      rgba(255,255,255,0.02) 1px,
+      rgba(0,0,0,0.02) 2px,
+      rgba(0,0,0,0.02) 3px
+    );
+  animation: crt-flicker 7s infinite steps(60), crt-noise 1.8s infinite steps(30);
+  opacity: 0.38;
+  z-index: 11;
+}
+
+@keyframes crt-flicker {
+  0%, 100% { opacity: 0.32; }
+  50% { opacity: 0.44; }
+}
+
+@keyframes crt-scan {
+  0% { background-position: 0 0, 0 0, 0 0; }
+  100% { background-position: 0 4px, 0 2px, 0 0; }
+}
+
+@keyframes crt-noise {
+  0%, 100% { opacity: 0.34; }
+  20% { opacity: 0.38; }
+  40% { opacity: 0.42; }
+  60% { opacity: 0.36; }
+  80% { opacity: 0.40; }
+}
+
+/* --- Login overlay --- */
+.login-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  background: #000; /* fully cover the app behind */
+}
+.login-inner {
+  position: relative;
+  width: min(820px, 92vw);
+  padding: 24px 20px 18px;
+  text-align: center;
+  z-index: 2; /* above matrix canvas */
+}
+.matrix-rain {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  opacity: 0.6;
+}
+.login-title {
+  font-family: 'Hack', monospace;
+  letter-spacing: 0.08em;
+  margin-bottom: 26px; /* ensure no overlap with prompt */
+}
+.login-title-line {
+  display: block;
+  font-weight: 900;
+  text-transform: uppercase;
+  /* use same CRT glow/drop shadow as banner */
+  text-shadow: var(--crt-text-shadow);
+}
+.login-title-first {
+  /* Make 'Mihir' larger than 'Talati' */
+  font-size: clamp(48px, 9vw, 120px);
+  line-height: 1.05;
+  color: var(--tw-color-dark-green, #00ff88);
+}
+.login-title-last {
+  font-size: clamp(42px, 8vw, 96px);
+  line-height: 1.02;
+  color: var(--tw-color-dark-yellow, #9acd32);
+}
+.glitch {
+  /* more intense, choppy flicker with color fringing */
+  animation: glitch-intense 0.6s linear 1;
+}
+@keyframes glitch-intense {
+  0% { transform: translate(0,0) skewX(0deg); filter: hue-rotate(0deg) contrast(1) saturate(1); opacity: 1; }
+  10% { transform: translate(-2px, 1px) skewX(-6deg); filter: hue-rotate(20deg) contrast(1.15) saturate(1.2); opacity: 0.95; }
+  20% { transform: translate(2px, -2px) skewX(7deg); filter: hue-rotate(-25deg) contrast(1.25) saturate(1.3); opacity: 0.9; }
+  30% { transform: translate(-3px, 0) skewX(-4deg); filter: hue-rotate(15deg) contrast(1.2) saturate(1.25); opacity: 0.96; }
+  40% { transform: translate(3px, -1px) skewX(8deg); filter: hue-rotate(-35deg) contrast(1.3) saturate(1.4); opacity: 0.88; }
+  50% { transform: translate(-2px, 2px) skewX(-8deg); filter: hue-rotate(30deg) contrast(1.35) saturate(1.45); opacity: 0.92; }
+  60% { transform: translate(2px, 0) skewX(5deg); filter: hue-rotate(-20deg) contrast(1.25) saturate(1.35); opacity: 0.95; }
+  70% { transform: translate(-1px, -1px) skewX(-5deg); filter: hue-rotate(10deg) contrast(1.2) saturate(1.25); opacity: 0.97; }
+  80% { transform: translate(1px, 2px) skewX(6deg); filter: hue-rotate(-15deg) contrast(1.2) saturate(1.3); opacity: 0.94; }
+  90% { transform: translate(0, 0) skewX(-2deg); filter: hue-rotate(5deg) contrast(1.1) saturate(1.15); opacity: 0.98; }
+  100% { transform: translate(0,0) skewX(0deg); filter: hue-rotate(0deg) contrast(1) saturate(1); opacity: 1; }
+}
+.login-form {
+  display: inline-flex;
+  gap: 10px;
+  align-items: center;
+  background: rgba(0,0,0,0.35);
+  padding: 10px 12px;
+  border-radius: 6px;
+  border: 1px solid rgba(0,255,136,0.35);
+}
+.login-label {
+  color: rgba(218, 255, 218, 0.9);
+}
+.login-input {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #d2ffd2;
+  min-width: min(380px, 60vw);
+}
+
+/* --- Rotating typewriter line under login --- */
+.login-rotator {
+  margin-top: 14px;
+  color: rgba(210, 255, 210, 0.9);
+  font-size: clamp(14px, 2.6vw, 18px);
+  letter-spacing: 0.02em;
+  text-shadow: var(--crt-text-shadow);
+  min-height: 1.4em; /* avoid layout shift during backspace */
+}
+.login-rotator-caret {
+  display: inline-block;
+  width: 10px;
+  height: 1em;
+  margin-left: 3px;
+  border-right: 2px solid currentColor;
+  animation: caret-blink 1s steps(2, start) infinite;
+  vertical-align: -0.05em;
+}
+@keyframes caret-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* --- sumfetch layout and colors --- */
+.sumfetch-container { display: flex; justify-content: center; }
+.sumfetch-grid { display: inline-grid; grid-template-columns: auto 1fr; column-gap: 18px; row-gap: 2px; align-items: start; }
+.sumfetch-left {
+  white-space: pre;
+  line-height: 1;
+  color: #ffffff; /* Null symbol in white */
+  text-shadow: var(--crt-text-shadow);
+  font-size: 1.3em; /* scaled down (~66% of 1.95em) */
+}
+.sumfetch-right pre {
+  white-space: pre;
+  margin: 0;
+  line-height: 1.1; /* slightly taller for readability */
+  font-variant-ligatures: none;
+}
+.sumfetch-border {
+  /* brighter, greener border to compensate CRT bleed */
+  color: rgba(110, 255, 140, 0.86);
+  font-weight: 700;
+}
+.sumfetch-title {
+  /* vivid green header label; larger than body */
+  color: #b6ff66;
+  font-weight: 800;
+  font-size: 1.2em; /* slightly reduced with overall scale */
+}
+.sumfetch-icon {
+  /* monochrome green icons (education included), slightly brighter */
+  color: #9eff88;
+}
+.sumfetch-key { font-weight: 700; }
+.sumfetch-key--green { color: #9eff88; }
+.sumfetch-key--yellow { color: #ffd75a; }
+.sumfetch-key--blue { color: #77baff; }
+.sumfetch-key--magenta { color: #ff7bd9; }
+/* Additional dynamic brand/value colors */
+.sumfetch-key--red { color: #ff6b6b; }
+.sumfetch-key--linkedin { color: #0A66C2; }
+.sumfetch-key--github { color: #c9d1d9; }
+.sumfetch-about-val { color: #b6ff66; font-weight: 600; }
+.sumfetch-right {
+  /* bump overall section text size */
+  font-size: 0.9em; /* scaled down to ~66% */
+  line-height: 1.15;
+}
+
+/* Clickable links inside sumfetch */
+.sumfetch-link { color: inherit; text-decoration: underline; }
+.sumfetch-link.sumfetch-val--red { color: #ff6b6b; }
+.sumfetch-link.sumfetch-val--yellow { color: #ffd75a; }
+.sumfetch-link.sumfetch-val--linkedin { color: #0A66C2; }
+.sumfetch-link.sumfetch-val--github { color: #c9d1d9; }
+.sumfetch-link:hover {
+  color: #e6e6e6;
+}

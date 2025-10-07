@@ -1,17 +1,25 @@
 {
-  "readmeUrl": "https://raw.githubusercontent.com/cveinnt/cveinnt/master/README.md",
-  "title": "LiveTerm",
-  "name": "John Doe",
-  "ascii": "liveterm",
+  "readmeUrl": "https://raw.githubusercontent.com/Mihir-Null/Mihir-Null/main/README.md",
+  "title": "Mihir Talati — Retro Terminal",
+  "name": "Mihir Talati",
+  "ascii": "MiTerm",
+  "degrees": "—",
+  "gpa": "—",
+  "graduation_date": "—",
   "social": {
-    "github": "github",
-    "linkedin": "linkedin"
+    "github": "Mihir-Null",
+    "linkedin": "mihir-talati-2671a2247"
   },
-  "email": "contact@email.com",
-  "ps1_hostname": "liveterm",
-  "ps1_username": "visitor",
-  "repo": "https://github.com/Cveinnt/LiveTerm",
-  "resume_url": "https://upload.wikimedia.org/wikipedia/commons/c/cc/Resume.pdf",
+  "email": "mihirtalati3@gmail.com",
+  "phone": "—",
+  "citizenship": "US",
+  "age": "—",
+  "ps1_hostname": "MiTerm",
+  "ps1_username": "mihir",
+  "theme": "matrix_crt",
+  "effects": { "crt": true },
+  "repo": "https://github.com/Mihir-Null",
+  "resume_url": "https://www.linkedin.com/in/mihir-talati-2671a2247/",
   "donate_urls": {
     "paypal": "https://paypal.me/cveinnt",
     "patreon": "https://patreon.com/cveinnt"

@@ -4,7 +4,8 @@ import config from '../../config.json';
 import { Input } from '../components/input';
 import { useHistory } from '../components/history/hook';
 import { History } from '../components/history/History';
-import { banner } from '../utils/bin';
+import { sumfetch } from '../utils/bin';
+import Login from '../components/Login';
 
 interface IndexPageProps {
   inputRef: React.MutableRefObject<HTMLInputElement>;
@@ -22,7 +23,9 @@ const IndexPage: React.FC<IndexPageProps> = ({ inputRef }) => {
     setLastCommandIndex,
   } = useHistory([]);
 
-  const init = React.useCallback(() => setHistory(banner()), []);
+  const init = React.useCallback(() => {
+    sumfetch([]).then((out) => setHistory(out));
+  }, []);
 
   React.useEffect(() => {
     init();
@@ -35,6 +38,11 @@ const IndexPage: React.FC<IndexPageProps> = ({ inputRef }) => {
     }
   }, [history]);
 
+  const [loggedIn, setLoggedIn] = React.useState<boolean>(false);
+  const [username, setUsername] = React.useState<string>('');
+
+  // No persistence: always require login on fresh load.
+
   return (
     <>
       <Head>
@@ -42,9 +50,13 @@ const IndexPage: React.FC<IndexPageProps> = ({ inputRef }) => {
       </Head>
 
       <div className="p-8 overflow-hidden h-full border-2 rounded border-light-yellow dark:border-dark-yellow">
+        {!loggedIn && (
+          <Login onLogin={(u: string) => { setUsername(u); setLoggedIn(true); }} />
+        )}
         <div ref={containerRef} className="overflow-y-auto h-full">
-          <History history={history} />
+          <History history={history} username={username} />
 
+          {loggedIn && (
           <Input
             inputRef={inputRef}
             containerRef={containerRef}
@@ -55,7 +67,8 @@ const IndexPage: React.FC<IndexPageProps> = ({ inputRef }) => {
             setHistory={setHistory}
             setLastCommandIndex={setLastCommandIndex}
             clearHistory={clearHistory}
-          />
+            username={username}
+          />)}
         </div>
       </div>
     </>
