@@ -22,9 +22,10 @@ const linkedInExplorer: LinkedInFsEntry[] = [
         name: 'summary.txt',
         description: 'LinkedIn About summary',
         content: [
-          `${config.name} — dual degree honors student (CS & Physics) at the University of Maryland.`,
-          'Explores quantum error correction, quantum machine learning, and high-impact systems engineering.',
-          'Active across QuICS, Bright Beams Collective, and student quantum communities.',
+          `${config.name} — Pursuing Dual degrees in Comoputer Science and Physics at the University of Maryland.`,
+          'Exploring Quantum Computing, Machine Learning and Simulation with an emphasis on research projects.',
+          'Interested in all things science and technology. Hobbies include literature, game development and tinkering.',
+          'Currently working in Quantum Error Correction research, and student quantum communities.',
           '',
           'Motivated by building tools that bridge theoretical breakthroughs with real-world impact.'
         ].join('\n'),
@@ -331,7 +332,28 @@ export const help = async (args: string[]): Promise<string> => {
   const allCommands = Object.keys(bin)
     .filter((cmd) => cmd !== 'default')
     .sort();
-  const priority = ['ls', 'resume', 'summary', 'crt'];
+  const priority = ['about','resume', 'summary','email','linkedin','github','github_projects','sumfetch','crt'];
+  const prioritized = priority.filter((cmd) => allCommands.includes(cmd));
+  const orderedCommands = [
+    ...prioritized,
+    //...allCommands.filter((cmd) => !priority.includes(cmd)),
+  ];
+  const bulletList = orderedCommands
+    .map((cmd, index) => {
+      const marker = index === orderedCommands.length - 1 ? '└' : '├';
+      return `${marker} ${cmd}`;
+    })
+    .join('\n');
+
+  return `Available commands:\n${bulletList}\n\nShortcuts:\n- [tab] trigger completion\n- [ctrl+l] or clear to wipe the terminal\n\nTry 'sumfetch' for the quick card or 'summary' for the full profile.`;
+};
+
+// Help
+export const allcommands = async (args: string[]): Promise<string> => {
+  const allCommands = Object.keys(bin)
+    .filter((cmd) => cmd !== 'default')
+    .sort();
+  const priority = ['about','resume', 'summary','email','linkedin','github','github_projects','sumfetch','crt'];
   const prioritized = priority.filter((cmd) => allCommands.includes(cmd));
   const orderedCommands = [
     ...prioritized,
@@ -349,7 +371,7 @@ export const help = async (args: string[]): Promise<string> => {
 
 // About
 export const about = async (args: string[]): Promise<string> => {
-  return `Hi, I am ${config.name} — a CS and Physics honors student at UMD focused on quantum computing, ML, and systems.
+  return `Hi! I'm ${config.name} — a CS and Physics honors student at UMD focused on quantum computing, ML, and systems.
 More:
 'sumfetch'  - quick profile + links
 'summary'   - deeper dive into work & projects
@@ -362,14 +384,14 @@ export const resume = async (args: string[]): Promise<string> => {
   return 'Opening resume...';
 };
 
-// Donate
-export const donate = async (args: string[]): Promise<string> => {
-  return `thank you for your interest. 
-here are the ways you can support my work:
-- <u><a class="text-light-blue dark:text-dark-blue underline" href="${config.donate_urls.paypal}" target="_blank">paypal</a></u>
-- <u><a class="text-light-blue dark:text-dark-blue underline" href="${config.donate_urls.patreon}" target="_blank">patreon</a></u>
-`;
-};
+// // Donate
+// export const donate = async (args: string[]): Promise<string> => {
+//   return `thank you for your interest. 
+// here are the ways you can support my work:
+// - <u><a class="text-light-blue dark:text-dark-blue underline" href="${config.donate_urls.paypal}" target="_blank">paypal</a></u>
+// - <u><a class="text-light-blue dark:text-dark-blue underline" href="${config.donate_urls.patreon}" target="_blank">patreon</a></u>
+// `;
+// };
 
 // Contact
 export const email = async (args: string[]): Promise<string> => {
@@ -399,10 +421,10 @@ export const duckduckgo = async (args: string[]): Promise<string> => {
   return `Searching duckduckgo for ${args.join(' ')}...`;
 };
 
-export const bing = async (args: string[]): Promise<string> => {
-  window.open(`https://bing.com/search?q=${args.join(' ')}`);
-  return `Wow, really? You are using bing for ${args.join(' ')}?`;
-};
+// export const bing = async (args: string[]): Promise<string> => {
+//   window.open(`https://bing.com/search?q=${args.join(' ')}`);
+//   return `Wow, really? You are using bing for ${args.join(' ')}?`;
+// };
 
 export const reddit = async (args: string[]): Promise<string> => {
   window.open(`https://www.reddit.com/search/?q=${args.join(' ')}`);
@@ -421,9 +443,9 @@ export const whoami = async (args: string[]): Promise<string> => {
 export const ls = async (args: string[]): Promise<string> => {
   const payload = encodeExplorerTree(linkedInExplorer);
   return `
-<div class="fs-browser" data-fs-explorer tabindex="0" role="application" aria-label="LinkedIn sections explorer" data-tree="${payload}">
+<div class="fs-browser" data-fs-explorer tabindex="0" role="application" aria-label="~/MiTerm/Mihir/Data/" data-tree="${payload}">
   <div class="fs-browser__window">
-    <div class="fs-browser__titlebar">linkedin::fs — sections as virtual directories</div>
+    <div class="fs-browser__titlebar">root::fs — navigate to section of interest</div>
     <div class="fs-browser__path" data-role="path">~/</div>
     <div class="fs-browser__list" data-role="list"></div>
     <div class="fs-browser__status" data-role="status">Use ↑/↓ or w/s/j/k to move. Enter/→/d opens, Esc/←/a backs.</div>
@@ -431,7 +453,7 @@ export const ls = async (args: string[]): Promise<string> => {
       <span>Navigation: ↑/↓, w/s, j/k</span>
       <span>Open: enter, →, d, l</span>
       <span>Back/Close: esc, ←, a, h</span>
-      <span>Files open in nano-style overlay · ctrl+x or esc exits · f toggle full height</span>
+      <span> GNU Pico · ctrl+x or esc exits · f toggle full height</span>
     </div>
   </div>
   <div class="fs-browser__noscript">JavaScript is required for the interactive LinkedIn directory view.</div>

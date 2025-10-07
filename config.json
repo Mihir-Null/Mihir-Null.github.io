@@ -1,6 +1,6 @@
 {
   "readmeUrl": "https://raw.githubusercontent.com/Mihir-Null/Mihir-Null/main/README.md",
-  "title": "Mihir Talati — Retro Terminal",
+  "title": "Mihir Null",
   "name": "Mihir Talati",
   "ascii": "MiTerm",
   "degrees": [
@@ -18,7 +18,7 @@
   "citizenship": "US",
   "age": "—",
   "ps1_hostname": "MiTerm",
-  "ps1_username": "mihir",
+  "ps1_username": "MihirTalati",
   "theme": "matrix_crt",
   "effects": { "crt": true },
   "repo": "https://github.com/Mihir-Null",
