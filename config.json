@@ -3,12 +3,6 @@
   "title": "Mihir Null",
   "name": "Mihir Talati",
   "ascii": "MiTerm",
-  "degrees": [
-    "B.S. in Computer Science (Honors)",
-    "B.S. in Physics (Honors)"
-  ],
-  "gpa": "3.974",
-  "graduation_date": "May 2027",
   "social": {
     "github": "Mihir-Null",
     "linkedin": "mihir-talati-2671a2247"
@@ -16,11 +10,10 @@
   "email": "mihirtalati3@gmail.com",
   "phone": "(240)-351-1014",
   "citizenship": "US",
-  "age": "—",
   "ps1_hostname": "MiTerm",
   "ps1_username": "MihirTalati",
   "theme": "matrix_crt",
-  "effects": { "crt": true },
+  "effects": { "crt": false },
   "repo": "https://github.com/Mihir-Null",
   "resume_url": "/resume.html",
   "donate_urls": {

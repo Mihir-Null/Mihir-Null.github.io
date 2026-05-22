@@ -81,9 +81,8 @@ const App = ({ Component, pageProps }) => {
       root.classList.remove('crt');
       return () => window.removeEventListener('resize', onResize);
     }
-    if (config?.effects?.crt || config?.theme === 'matrix_crt') {
+    if (config?.effects?.crt) {
       root.classList.add('crt');
-      // default warp strength
       root.classList.add('crt-warp-md');
     } else {
       root.classList.remove('crt');
@@ -166,7 +165,7 @@ const App = ({ Component, pageProps }) => {
           id="terminal-root"
           className={
             `bg-light-background dark:bg-dark-background w-full h-full p-2 relative overflow-hidden` +
-            ((config?.effects?.crt || config?.theme === 'matrix_crt') ? ' crt' : '')
+            (config?.effects?.crt ? ' crt' : '')
           }
         >
           <div className="crt-frame">

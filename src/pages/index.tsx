@@ -2,10 +2,8 @@ import Head from 'next/head';
 import React from 'react';
 import config from '../../config.json';
 import { Input } from '../components/input';
-import { useHistory } from '../components/history/hook';
-import { History } from '../components/history/History';
+import { History, useHistory } from '../components/History';
 import { sumfetch } from '../utils/bin';
-import Login from '../components/Login';
 
 interface IndexPageProps {
   inputRef: React.MutableRefObject<HTMLInputElement>;
@@ -38,11 +36,6 @@ const IndexPage: React.FC<IndexPageProps> = ({ inputRef }) => {
     }
   }, [history]);
 
-  const [loggedIn, setLoggedIn] = React.useState<boolean>(false);
-  const [username, setUsername] = React.useState<string>('');
-
-  // No persistence: always require login on fresh load.
-
   return (
     <>
       <Head>
@@ -50,13 +43,8 @@ const IndexPage: React.FC<IndexPageProps> = ({ inputRef }) => {
       </Head>
 
       <div className="p-8 overflow-hidden h-full border-2 rounded border-light-yellow dark:border-dark-yellow">
-        {!loggedIn && (
-          <Login onLogin={(u: string) => { setUsername(u); setLoggedIn(true); }} />
-        )}
         <div ref={containerRef} className="overflow-y-auto h-full">
-          <History history={history} username={username} />
-
-          {loggedIn && (
+          <History history={history} />
           <Input
             inputRef={inputRef}
             containerRef={containerRef}
@@ -67,10 +55,18 @@ const IndexPage: React.FC<IndexPageProps> = ({ inputRef }) => {
             setHistory={setHistory}
             setLastCommandIndex={setLastCommandIndex}
             clearHistory={clearHistory}
-            username={username}
-          />)}
+          />
         </div>
       </div>
+
+      <a
+        href="/resume.html"
+        target="_blank"
+        rel="noreferrer"
+        className="fixed bottom-4 right-4 z-50 text-xs border border-dark-yellow text-dark-yellow px-3 py-1.5 hover:bg-dark-yellow hover:text-dark-background transition-colors"
+      >
+        resume ↗
+      </a>
     </>
   );
 };
