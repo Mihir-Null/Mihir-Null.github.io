@@ -5,32 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Mihir Talati – Resume</title>
     <style>
+      /* Gruvbox dark palette (matches the terminal theme). */
       :root {
         --content-max-width: 960px;
-        --primary-text: #d9ffe2;
-        --secondary-text: rgba(182, 255, 210, 0.75);
-        --accent: #9acd32;
-        --card-bg: rgba(4, 30, 16, 0.82);
-        --card-border: rgba(98, 255, 164, 0.35);
-        --page-bg: radial-gradient(
-          circle at top,
-          rgba(10, 40, 22, 0.85) 0%,
-          rgba(1, 12, 5, 1) 55%
-        );
-        --tag-bg: rgba(82, 255, 160, 0.12);
-        --tag-border: rgba(146, 255, 197, 0.45);
-        --filter-border: rgba(146, 255, 197, 0.35);
-        --filter-focus: rgba(154, 205, 50, 0.45);
-        --glass-highlight: rgba(146, 255, 197, 0.06);
-      }
-
-      @keyframes scanline {
-        0% {
-          transform: translateY(-100%);
-        }
-        100% {
-          transform: translateY(100%);
-        }
+        --primary-text: #ebdbb2;
+        --secondary-text: #a89984;
+        --accent: #d79921;
+        --accent-bright: #fabd2f;
+        --card-bg: #32302f;
+        --card-border: rgba(215, 153, 33, 0.3);
+        --page-bg: radial-gradient(circle at top, #32302f 0%, #1d2021 60%);
+        --tag-bg: rgba(215, 153, 33, 0.12);
+        --tag-border: rgba(215, 153, 33, 0.4);
+        --filter-border: rgba(168, 153, 132, 0.4);
+        --filter-focus: rgba(215, 153, 33, 0.55);
+        --glass-highlight: rgba(235, 219, 178, 0.05);
       }
 
       * {
@@ -41,48 +30,14 @@
         margin: 0;
         font-family: 'IBM Plex Mono', 'Fira Code', ui-monospace, SFMono-Regular,
           Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
-        background: #010805;
+        background: #1d2021;
         background-image: var(--page-bg);
         color: var(--primary-text);
         line-height: 1.65;
         letter-spacing: 0.01em;
-        text-shadow: 0 0 6px rgba(146, 255, 197, 0.18);
         position: relative;
         overflow-x: hidden;
         min-height: 100vh;
-      }
-
-      body::before {
-        content: '';
-        position: fixed;
-        inset: 0;
-        pointer-events: none;
-        background: linear-gradient(
-          rgba(255, 255, 255, 0.04) 0%,
-          rgba(0, 0, 0, 0) 50%,
-          rgba(255, 255, 255, 0.04) 100%
-        );
-        background-size: 100% 3px;
-        opacity: 0.25;
-        mix-blend-mode: overlay;
-      }
-
-      body::after {
-        content: '';
-        position: fixed;
-        left: 0;
-        right: 0;
-        top: -100%;
-        height: 120%;
-        pointer-events: none;
-        background: linear-gradient(
-          to bottom,
-          rgba(154, 205, 50, 0) 0%,
-          rgba(154, 205, 50, 0.12) 50%,
-          rgba(154, 205, 50, 0) 100%
-        );
-        animation: scanline 6s linear infinite;
-        opacity: 0.25;
       }
 
       .container {
@@ -101,7 +56,7 @@
         font-size: 2.6rem;
         letter-spacing: 0.1em;
         text-transform: uppercase;
-        color: #eafff5;
+        color: #fbf1c7;
       }
 
       header p {
@@ -129,9 +84,8 @@
         padding: 32px 36px;
         background: var(--card-bg);
         border: 1px solid var(--card-border);
-        box-shadow: 0 0 0 1px rgba(154, 205, 50, 0.18),
-          0 24px 48px rgba(10, 60, 30, 0.45);
-        backdrop-filter: blur(6px) saturate(120%);
+        box-shadow: 0 1px 0 var(--glass-highlight),
+          0 20px 40px rgba(0, 0, 0, 0.35);
       }
 
       .card::after {
@@ -139,7 +93,7 @@
         position: absolute;
         inset: 12px;
         border-radius: 14px;
-        border: 1px solid rgba(146, 255, 197, 0.08);
+        border: 1px solid rgba(235, 219, 178, 0.05);
         pointer-events: none;
       }
 
@@ -163,7 +117,7 @@
         font-size: 1.2rem;
         font-weight: 600;
         letter-spacing: 0.04em;
-        color: #e5ffe9;
+        color: #fbf1c7;
       }
 
       .card-subtitle {
@@ -200,11 +154,10 @@
         border-radius: 999px;
         border: 1px solid var(--tag-border);
         background: var(--tag-bg);
-        color: #9df5ba;
+        color: var(--accent-bright);
         font-size: 0.85rem;
         font-weight: 600;
         letter-spacing: 0.02em;
-        box-shadow: inset 0 0 12px rgba(146, 255, 197, 0.12);
       }
 
       ul.bullet-list {
@@ -231,44 +184,26 @@
       .scholarships {
         margin-top: 20px;
         padding-top: 18px;
-        border-top: 1px solid rgba(146, 255, 197, 0.24);
+        border-top: 1px solid rgba(168, 153, 132, 0.24);
       }
 
       .scholarships-title {
         font-weight: 600;
         margin: 0 0 10px;
-        color: rgba(182, 255, 210, 0.85);
+        color: var(--secondary-text);
         letter-spacing: 0.08em;
         text-transform: uppercase;
         font-size: 0.75rem;
       }
 
       .courses-card {
-        background: linear-gradient(
-          160deg,
-          rgba(8, 40, 18, 0.9) 0%,
-          rgba(2, 16, 8, 0.92) 65%,
-          rgba(4, 24, 12, 0.96) 100%
-        );
+        background: linear-gradient(160deg, #32302f 0%, #1d2021 70%);
         border-radius: 24px;
         padding: 36px;
-        border: 1px solid rgba(146, 255, 197, 0.4);
-        box-shadow: 0 30px 60px rgba(6, 40, 18, 0.5);
+        border: 1px solid rgba(215, 153, 33, 0.35);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
         position: relative;
         overflow: hidden;
-      }
-
-      .courses-card::before {
-        content: '';
-        position: absolute;
-        inset: -60px 20% 40%;
-        background: radial-gradient(
-          circle,
-          rgba(146, 255, 197, 0.28) 0%,
-          rgba(146, 255, 197, 0) 65%
-        );
-        opacity: 0.65;
-        pointer-events: none;
       }
 
       .filter-label {
@@ -277,7 +212,7 @@
         letter-spacing: 0.18em;
         text-transform: uppercase;
         font-size: 0.75rem;
-        color: rgba(182, 255, 210, 0.78);
+        color: var(--secondary-text);
         margin-bottom: 8px;
         position: relative;
         z-index: 1;
@@ -289,22 +224,21 @@
         border-radius: 12px;
         border: 1px solid var(--filter-border);
         font-size: 1rem;
-        background: rgba(2, 18, 9, 0.92);
+        background: #1d2021;
         color: var(--primary-text);
         transition: border-color 0.2s ease, box-shadow 0.2s ease;
-        text-shadow: inherit;
         position: relative;
         z-index: 1;
       }
 
       .filter-input::placeholder {
-        color: rgba(182, 255, 210, 0.45);
+        color: rgba(168, 153, 132, 0.6);
       }
 
       .filter-input:focus {
         outline: none;
         border-color: var(--filter-focus);
-        box-shadow: 0 0 0 4px rgba(154, 205, 50, 0.18);
+        box-shadow: 0 0 0 4px rgba(215, 153, 33, 0.18);
       }
 
       .courses-grid {
@@ -317,23 +251,21 @@
       }
 
       .course-pill {
-        background: rgba(6, 28, 14, 0.9);
+        background: #3c3836;
         border-radius: 16px;
         padding: 12px 16px;
-        border: 1px solid rgba(146, 255, 197, 0.4);
+        border: 1px solid rgba(215, 153, 33, 0.35);
         font-weight: 500;
         color: var(--primary-text);
-        box-shadow: inset 0 0 12px rgba(146, 255, 197, 0.08),
-          0 16px 32px rgba(6, 40, 18, 0.45);
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
         transition: transform 0.15s ease, box-shadow 0.15s ease,
           border-color 0.15s ease;
       }
 
       .course-pill:hover {
         transform: translateY(-2px);
-        border-color: rgba(154, 205, 50, 0.65);
-        box-shadow: inset 0 0 14px rgba(146, 255, 197, 0.12),
-          0 18px 36px rgba(10, 60, 30, 0.55);
+        border-color: rgba(215, 153, 33, 0.65);
+        box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4);
       }
 
       .course-pill.hidden {
@@ -345,9 +277,9 @@
         margin-top: 24px;
         padding: 18px;
         border-radius: 14px;
-        background: rgba(4, 20, 10, 0.75);
-        border: 1px dashed rgba(146, 255, 197, 0.5);
-        color: rgba(212, 255, 225, 0.82);
+        background: rgba(40, 40, 40, 0.8);
+        border: 1px dashed rgba(215, 153, 33, 0.5);
+        color: var(--secondary-text);
         text-align: center;
         font-weight: 500;
         position: relative;
@@ -402,7 +334,7 @@
     <div class="container">
       <header>
         <h1>Mihir Talati</h1>
-        <p>Dual Degree · B.S. Computer Science (Honors) &amp; B.S. Physics (Honors) · GPA 3.974</p>
+        <p>Dual Degree · B.S. Computer Science (Honors — Quantum Information track) &amp; B.S. Physics (Honors) · GPA 3.974</p>
       </header>
 
       <div class="courses-card toolbar">
@@ -419,7 +351,7 @@
           <section id="education">
       <h2 class="section-title">Education</h2>
       <div class="education-grid">
-      <article class="card" data-search="university of maryland — college park computer science (honors) · physics (honors) b.s. computer science (honors) b.s. physics (honors) angelo bardasis scholarship — physics john d. gannon scholarship — computer science dean's list — every semester">
+      <article class="card" data-search="university of maryland — college park computer science (honors) · physics (honors) b.s. computer science (honors — quantum information track) b.s. physics (honors) angelo bardasis scholarship — physics john d. gannon scholarship — computer science dean's list — every semester">
         <div class="card-header">
           <div>
             <h3 class="card-title">University of Maryland — College Park</h3>
@@ -438,16 +370,16 @@
     <section id="work">
       <h2 class="section-title">Work Experience</h2>
 
-      <article class="card" data-search="researcher caar reu combinatorics, algorithms, and ai for real problems quics · university of maryland python galois numpy magma math sagemath designed novel fault-tolerant css quantum error-correcting codes for qudits inspired by quadratic residue codes. established code families with transversal clifford and t gate support through finite field and qec theory proofs. implemented parallel python tooling to validate self-orthogonality and distance properties across large search spaces.">
+      <article class="card" data-search="researcher caar reu combinatorics, algorithms, and ai for real problems joint center for quantum information and computer science (quics) python galois numpy magma math sagemath constructing a new family of css quantum error-correcting codes for qudits from classical quadratic residue codes. validated novel fault-tolerant qec codes using finite field theory and parallel python tooling on an hpc cluster. proved transversal clifford and t gate support and tested self-orthogonality and distance across large search spaces.">
         <div class="card-header">
           <div>
             <h3 class="card-title">Researcher · CAAR REU</h3>
             <p class="card-subtitle">Combinatorics, Algorithms, and AI for Real Problems</p>
           </div>
-          <div class="card-meta"><span class="meta-line">Jun 2025 – Aug 2025</span><span class="meta-line">QuICS · University of Maryland</span></div>
+          <div class="card-meta"><span class="meta-line">Jun 2025 – Present</span><span class="meta-line">Joint Center for Quantum Information and Computer Science (QuICS)</span></div>
         </div>
         <ul class="tag-list"><li class="tag">Python</li><li class="tag">Galois</li><li class="tag">NumPy</li><li class="tag">Magma Math</li><li class="tag">SageMath</li></ul>
-        <ul class="bullet-list"><li>Designed novel fault-tolerant CSS quantum error-correcting codes for qudits inspired by quadratic residue codes.</li><li>Established code families with transversal Clifford and T gate support through finite field and QEC theory proofs.</li><li>Implemented parallel Python tooling to validate self-orthogonality and distance properties across large search spaces.</li></ul>
+        <ul class="bullet-list"><li>Constructing a new family of CSS quantum error-correcting codes for qudits from classical quadratic residue codes.</li><li>Validated novel fault-tolerant QEC codes using finite field theory and parallel Python tooling on an HPC cluster.</li><li>Proved transversal Clifford and T gate support and tested self-orthogonality and distance across large search spaces.</li></ul>
       </article>
 
       <article class="card" data-search="undergraduate researcher bright beams collective ireap research experience for undergraduates institute for research in electronics and applied physics mad-x elegant fusion 360 matlab ansys workbench built custom machine learning and gradient-based optimizers to derive design parameters for a planned beamline. ran accelerator simulations to analyze lattice stability and beam quality under varied operating configurations. produced animations of betatron motion for outreach presentations and technical discussions.">
@@ -477,6 +409,18 @@
 
     <section id="projects">
       <h2 class="section-title">Projects</h2>
+
+      <article class="card" data-search="nyx — declarative system &amp; knowledge infrastructure reproducible nixos + literate org-roam vault nix nixos home-manager emacs lisp org-mode org-roam built a modular, reproducible nixos system (nyxos/nyxnet/nyxsys) with declarative host, network, and service boundaries. designed a distributed org-roam vault — one searchable knowledge graph whose notes live inside each project repo, bound to code via roam_refs. authored a literate doom emacs configuration and agent-driven tooling, codifying an engineering praxis (single source of truth, declared mirrors, atomicity) enforced by ci canaries.">
+        <div class="card-header">
+          <div>
+            <h3 class="card-title">Nyx — Declarative System &amp; Knowledge Infrastructure</h3>
+            <p class="card-subtitle">Reproducible NixOS + literate org-roam vault</p>
+          </div>
+          <div class="card-meta"><span class="meta-line">2024 – Present</span></div>
+        </div>
+        <ul class="tag-list"><li class="tag">Nix</li><li class="tag">NixOS</li><li class="tag">Home-Manager</li><li class="tag">Emacs Lisp</li><li class="tag">Org-mode</li><li class="tag">org-roam</li></ul>
+        <ul class="bullet-list"><li>Built a modular, reproducible NixOS system (NyxOS/NyxNet/NyxSys) with declarative host, network, and service boundaries.</li><li>Designed a distributed org-roam vault — one searchable knowledge graph whose notes live inside each project repo, bound to code via ROAM_REFS.</li><li>Authored a literate Doom Emacs configuration and agent-driven tooling, codifying an engineering praxis (single source of truth, declared mirrors, atomicity) enforced by CI canaries.</li></ul>
+      </article>
 
       <article class="card" data-search="quantum state tomography via qml github · github.com/mihir-null python qiskit aer mpi numba pytorch co-developed a variational circuit tomography approach, exploring loss landscapes, embedding strategies, and optimizers. executed 2,000+ experiments across multi-gpu clusters with a custom orchestrator for reproducible benchmarking. co-authored &quot;quantum state reconstruction with variational quantum circuit&quot; (arxiv:2507.01246).">
         <div class="card-header">
@@ -578,14 +522,14 @@
     <section id="organizations">
       <h2 class="section-title">Organizations</h2>
 
-      <article class="card" data-search="industry chair quantum coalition co-organized the qrise research competition with 200+ international participants. partnered with the un and itu to deliver the qc-fliq hackathon for the international year of quantum (500+ attendees).">
+      <article class="card" data-search="vice president quantum coalition promoted to vice president after serving as industry chair (jan 2024 – aug 2025). co-organized the qrise research competition with 200+ international participants. partnered with the un and itu to deliver the qc-fliq hackathon for the international year of quantum (500+ attendees).">
         <div class="card-header">
           <div>
-            <h3 class="card-title">Industry Chair · Quantum Coalition</h3>
+            <h3 class="card-title">Vice President · Quantum Coalition</h3>
           </div>
           <div class="card-meta"><span class="meta-line">Jan 2024 – Present</span></div>
         </div>
-        <ul class="bullet-list"><li>Co-organized the QRISE research competition with 200+ international participants.</li><li>Partnered with the UN and ITU to deliver the QC-FLIQ hackathon for the International Year of Quantum (500+ attendees).</li></ul>
+        <ul class="bullet-list"><li>Promoted to Vice President after serving as Industry Chair (Jan 2024 – Aug 2025).</li><li>Co-organized the QRISE research competition with 200+ international participants.</li><li>Partnered with the UN and ITU to deliver the QC-FLIQ hackathon for the International Year of Quantum (500+ attendees).</li></ul>
       </article>
 
       <article class="card" data-search="president undergraduate quantum association led organizational strategy, programming, and outreach after serving as an officer since 2020. produced the quantum leap career nexus with 240+ attendees and partners including ibm, microsoft, and ionq.">
@@ -598,10 +542,10 @@
         <ul class="bullet-list"><li>Led organizational strategy, programming, and outreach after serving as an officer since 2020.</li><li>Produced the Quantum Leap Career Nexus with 240+ attendees and partners including IBM, Microsoft, and IonQ.</li></ul>
       </article>
 
-      <article class="card" data-search="co-president acm@umd restarted the university chapter, launched a new website, and grew membership beyond 145 students. led workshops focused on shell scripting, ai, quantum computing, and heuristic search techniques.">
+      <article class="card" data-search="co-founder acm@umd restarted the university chapter, launched a new website, and grew membership beyond 145 students. led workshops focused on shell scripting, ai, quantum computing, and heuristic search techniques.">
         <div class="card-header">
           <div>
-            <h3 class="card-title">Co-President · ACM@UMD</h3>
+            <h3 class="card-title">Co-Founder · ACM@UMD</h3>
           </div>
           <div class="card-meta"><span class="meta-line">Sep 2023 – Present</span></div>
         </div>
@@ -612,11 +556,11 @@
     <section id="publications">
       <h2 class="section-title">Publications</h2>
 
-      <article class="card" data-search="quantum state reconstruction with variational quantum circuit preprint — arxiv:2507.01246 introduces a quantum machine learning approach to tomography for high-dimensional states. benchmarks loss landscapes, embedding strategies, and optimizer behavior across noise models. highlights scalability results enabled by custom experiment orchestration.">
+      <article class="card" data-search="quantum state reconstruction with variational quantum circuit accepted — quantum machine intelligence (2025); arxiv:2507.01246 introduces a quantum machine learning approach to tomography for high-dimensional states. benchmarks loss landscapes, embedding strategies, and optimizer behavior across noise models. highlights scalability results enabled by custom experiment orchestration.">
         <div class="card-header">
           <div>
             <h3 class="card-title">Quantum state reconstruction with variational quantum circuit</h3>
-            <p class="card-subtitle">Preprint — arXiv:2507.01246</p>
+            <p class="card-subtitle">Accepted — Quantum Machine Intelligence (2025); arXiv:2507.01246</p>
           </div>
         </div>
         <ul class="bullet-list"><li>Introduces a quantum machine learning approach to tomography for high-dimensional states.</li><li>Benchmarks loss landscapes, embedding strategies, and optimizer behavior across noise models.</li><li>Highlights scalability results enabled by custom experiment orchestration.</li></ul>
@@ -633,11 +577,20 @@
       </article>
     </section>
 
+    <section id="certifications">
+      <h2 class="section-title">Certifications</h2>
+      <div class="courses-card">
+        <div class="courses-grid" id="certs-grid">
+          <span class="course-pill" data-search="qiskit (v0.2x) ibm">Qiskit (v0.2x) · IBM</span>
+        </div>
+      </div>
+    </section>
+
     <section id="courses">
       <h2 class="section-title">Relevant Courses</h2>
       <div class="courses-card">
         <div class="courses-grid" id="courses-grid">
-          <span class="course-pill" data-search="graduate quantum computing (cmsc657)">Graduate Quantum Computing (CMSC657)</span>
+          <span class="course-pill" data-search="graduate quantum information (cmsc657)">Graduate Quantum Information (CMSC657)</span>
           <span class="course-pill" data-search="computer science honors seminar">Computer Science Honors Seminar</span>
           <span class="course-pill" data-search="differentiable programming for agentic ai (cmsc498z)">Differentiable Programming for Agentic AI (CMSC498Z)</span>
           <span class="course-pill" data-search="natural language processing (cmsc470)">Natural Language Processing (CMSC470)</span>
@@ -647,7 +600,9 @@
           <span class="course-pill" data-search="applied probability &amp; statistics (stat400)">Applied Probability &amp; Statistics (STAT400)</span>
           <span class="course-pill" data-search="honors advanced modern physics (phys400)">Honors Advanced Modern Physics (PHYS400)</span>
           <span class="course-pill" data-search="quantum mechanics ii (phys402)">Quantum Mechanics II (PHYS402)</span>
+          <span class="course-pill" data-search="accelerator simulation">Accelerator Simulation</span>
           <span class="course-pill" data-search="multivariate calculus">Multivariate Calculus</span>
+          <span class="course-pill" data-search="linear algebra">Linear Algebra</span>
           <span class="course-pill" data-search="differential equations">Differential Equations</span>
         </div>
       </div>
